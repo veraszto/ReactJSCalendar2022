@@ -1,0 +1,37 @@
+
+
+
+
+
+header.main
+{
+	padding:2em;
+	background-color:DarkBlue;	
+	text-align:center;
+	color:white;
+}
+
+header.main > span
+{
+	animation-name:appear;
+	animation-duration:1000ms;	
+	font-size:1.5em;
+}
+
+@keyframes appear
+{
+	from
+	{
+		opacity:0;
+	}
+}
+
+header.main::before
+{
+	content:"CODELITT Calendar Challenge, Danilo G. Veraszto, january/2022";
+	position:absolute;
+	top:.5em;
+	right:.5em;
+	font-size:.75em;
+	white-space:nowrap;
+}

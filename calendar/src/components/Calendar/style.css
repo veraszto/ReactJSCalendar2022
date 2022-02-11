@@ -1,0 +1,48 @@
+
+
+
+section.calendar
+{
+	width:768px;
+	height:549px;
+	margin:auto;
+	background-image:url('../../assets.images/calendar.png');
+	background-position:center;
+	background-repeat:no-repeat;
+	background-size:contain;
+	position:relative;
+	top:50%;
+	transform:translateY(-50%);
+}
+
+
+section.calendar > section
+{
+	position:absolute;
+	top:37px;
+	bottom:21px;
+	left:17px;
+	right:16px;
+}
+
+section.calendar > section > div
+{
+	float:left;
+	width:102px;
+	height:96px;
+	background-color:#eee;
+	border-left:3px solid gray;
+	border-bottom:3px solid gray;
+	transition-duration:250ms;
+	transition-property:background-color;
+	cursor:pointer;
+}
+
+section.calendar > section > div:hover
+{
+	background-color:var(--SharpEmphasis);
+}
+
+
+
+

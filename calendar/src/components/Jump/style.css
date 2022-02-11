@@ -1,0 +1,72 @@
+
+
+
+
+svg.arrow
+{
+	fill:pink;
+	width:100%;
+	height:auto;
+	display:block;
+}
+
+.bar:active > svg 
+{
+	fill:var(--SharpEmphasis);
+}
+
+.bar
+{
+	position:absolute;
+	padding:0 1em;
+	width:2em;
+	height:calc(100% - 2px);
+	right:0;
+	top:0;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	background-color:var(--DarkGrey);
+	cursor:pointer;
+	transition-duration:250ms;
+	transition-property:background-color;
+}
+
+.bar:hover
+{
+	background-color:DarkBlue;
+}
+
+.bar.left
+{
+	right:auto;
+	left:0;
+}
+
+.bar.left > svg
+{
+	transform:rotate(180deg);
+}
+
+.bar > svg
+{
+}
+
+
+@media screen and (max-width: 768px)
+{
+	.bar
+	{
+		position:fixed;
+		height:5em;
+		top:auto;
+		bottom:0;
+	}
+	.bar.left
+	{
+
+	}
+}
+
+
+

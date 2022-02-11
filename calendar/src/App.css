@@ -1,0 +1,28 @@
+
+:root, #root
+{
+	height:100%;
+	--SharpEmphasis:#fc0fc0;
+	--DarkGrey:#222;
+}
+
+body
+{
+	background-color:var(--DarkGrey);
+	color:white;
+	height:100%;
+}
+
+.main-cont
+{
+	height:100%;
+	display:flex;
+	flex-direction:column;
+}
+
+.main-cont > .calendar-container
+{
+	position:relative;
+	overflow:auto;
+	flex:1;
+}
