@@ -9,6 +9,19 @@ section.reminder
 	color:var(--DarkGrey);
 }
 
+@media screen and (max-width: 900px)
+{
+	section.reminder
+	{
+		position:fixed;
+		top:auto;
+		right:50%;
+		transform:translateX(50%);
+		bottom:0;
+
+	}
+}
+
 section.reminder > article.content
 {
 	padding:0em 1em 1em 1em;

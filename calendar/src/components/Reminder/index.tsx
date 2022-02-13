@@ -54,15 +54,21 @@ export default function Reminder( props: any )
 	const submitSchedule = ( ev: React.FormEvent ) =>
 	{
 		ev.preventDefault();	
+//		console.log( inputsValues );
 		if ( !! inputsValues.message === false )
 		{
-			dispatch( setWarn("Please enter a schedule message") );
+			dispatch( setWarn("Please enter a reminder message") );
+			return;
+		}
+		if ( !! inputsValues.time === false )
+		{
+			dispatch( setWarn("Please enter a time") );
 			return;
 		}
 
 		dispatch( setReminder( { ... inputsValues, monthZeroBased: month.monthZeroBased } ) );
 
-		(ev.target as HTMLFormElement).reset();
+//		(ev.target as HTMLFormElement).reset();
 
 	}
 

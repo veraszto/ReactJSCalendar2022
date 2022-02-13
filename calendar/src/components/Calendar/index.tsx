@@ -20,14 +20,33 @@ function Calendar( props: any )
 
 	const fillReminders = ( day: number ) =>
 	{
-		return (
-			[ 
-				<article>Hello how are you</article>, 
-				<article>Hello how are you</article>, 
-				<article>Hello how are you</article>, 
-				<article>Hello how are you</article> 
-			]
+		const reminders = month.reminders[ month.monthZeroBased ] &&
+			month.reminders[ month.monthZeroBased ][ day ];
+
+		if ( reminders === undefined )
+		{
+			return null;
+		}
+
+		console.log( reminders );
+
+		const remindersElements = reminders.map
+		(
+			( reminder: { [ index: string ]: number | string }, index: number ) =>
+			{
+				return (
+					<article key={index} style={{backgroundColor: reminder.color as string }}>
+						<div>{reminder.time}
+						</div>
+						<div>{reminder.message}
+						</div>
+					</article>
+				);
+			}
 		);
+
+		return remindersElements;
+		
 	}
 
 	return (
