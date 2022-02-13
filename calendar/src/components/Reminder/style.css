@@ -5,14 +5,13 @@ section.reminder
 	position:absolute;
 	top:0;
 	right:0;
-	padding:1em;
 	background-color:var(--SharpEmphasis);
 	color:var(--DarkGrey);
 }
 
 section.reminder > article.content
 {
-	margin-top:1em;
+	padding:0em 1em 1em 1em;
 }
 
 section.reminder > article.content.not-shown
@@ -24,6 +23,7 @@ section.reminder .month
 {
 	text-align:center;
 	cursor:pointer;
+	padding:1em;
 }
 
 section.reminder input
@@ -72,6 +72,17 @@ section.reminder button
 	padding:.5em;
 	margin-top:1em;
 	cursor:pointer;
+}
+
+section.reminder .warn
+{
+	display:none;
+	padding:1em;
+}
+
+section.reminder .warn.shown
+{
+	display:block;
 }
 
 .input-container

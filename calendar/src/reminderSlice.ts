@@ -4,19 +4,23 @@ export const reminderSlice = createSlice
 (
 	{
 		name: "reminder",
-		initialState: { active: true },
+		initialState: { active: false, warn: null },
 		reducers:
 		{
-			toggleReminder: ( state, action ) =>
+			toggleReminder: ( state ) =>
 			{
 				state.active = ! state.active;
+			},
+			setWarn: ( state, action ) =>
+			{
+				state.warn = action.payload;
 			}
 		}
 	}
 );
 
 
-export const { toggleReminder } = reminderSlice.actions;
+export const { toggleReminder, setWarn } = reminderSlice.actions;
 export default reminderSlice.reducer;
 
 
