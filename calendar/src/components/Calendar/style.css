@@ -4,29 +4,30 @@
 section.calendar
 {
 	width:768px;
-	height:549px;
+	min-height:549px;
 	margin:auto;
 	background-image:url('../../assets.images/calendar.png');
-	background-position:center;
+	background-position:top left;
 	background-repeat:no-repeat;
 	background-size:contain;
 	position:relative;
 	top:50%;
 	transform:translateY(-50%);
+	background-color:white;
 }
 
 
 section.calendar > section
 {
-	position:absolute;
-	top:37px;
-	bottom:21px;
-	left:17px;
-	right:16px;
+	position:relative;
+	padding-left:17px;
+	padding-top:38px;
+	overflow:hidden;
 }
 
 section.calendar > section > div
 {
+	color:var(--DarkGrey);
 	float:left;
 	width:102px;
 	height:96px;
@@ -35,10 +36,26 @@ section.calendar > section > div
 	border-bottom:3px solid gray;
 	transition-duration:250ms;
 	transition-property:background-color;
-	cursor:pointer;
+	position:relative;
+}
+section.calendar > section > div > section > article > span
+{
+	display:none;
+	position:absolute;
+	left:5px;
+	top:2px;
 }
 
-section.calendar > section > div:hover
+section.calendar > section > div.active > section > article > span
+{
+	display:block;
+}
+
+section.calendar > section > div.active
+{
+}
+
+section.calendar > section > div.active:hover
 {
 	background-color:var(--SharpEmphasis);
 }

@@ -8,7 +8,6 @@ import "./style.css"
 function Calendar( props: any )
 {
 
-
 	const month = useSelector( ( state: { month: initialStateType } ) => state.month );
 	console.log( month );
 
@@ -20,9 +19,6 @@ function Calendar( props: any )
 	)
 
 
-//	const today = new Date();
-//	const month = months[ today.getMonth() ]
-//	console.log( today.getMonth()  );
 	return (
 		<section className="calendar">
 			<section>
@@ -32,29 +28,43 @@ function Calendar( props: any )
 					{
 						const squares = [];
 						let counter = 1;
+						let letRestart = true;
+						let key = 0;
+						let article = <article></article>;
+						let className: string[] = [];
 						for ( var i = 0 ; i <= 30 ; i++ )
 						{
-							if ( i === month.monthPack.startsAt )
+
+							if 
+							( 
+								i >= month.monthPack.startsAt &&
+								letRestart === true
+							)
 							{
 								counter = 1;
+								i = 0;
+								letRestart = false;
+								className = [ "active" ];
+							}
+
+							if ( i >= month.daysAmount )
+							{
+								return squares;
 							}
 							
-							let article = <article></article>;
-
-							if ( i >= month.monthPack.startsAt )
-							{
-								article = (
-									<article>
-										<span>{counter}
-										</span>
-									</article>
-								)
-							}
 
 							squares.push
 							(
-								<div key={i}>
-									<section>{article}
+								<div key={key++} className={className.join(" ")}>
+									<section>
+									{
+										React.cloneElement
+										(
+											article,
+											{},
+											<span>{counter}</span>
+										)
+									}
 									</section>
 								</div>
 							);
