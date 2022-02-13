@@ -78,6 +78,8 @@ section.reminder .warn
 {
 	display:none;
 	padding:1em;
+	background-color:Yellow;
+	margin-bottom:1em;
 }
 
 section.reminder .warn.shown
@@ -89,7 +91,7 @@ section.reminder .warn.shown
 {
 	padding:1em;
 	background-color:white;
-	border-bottom:1px solid Crimson;
+	border-bottom:1px solid var(--DarkGrey);
 }
 
 .input-container:last-child

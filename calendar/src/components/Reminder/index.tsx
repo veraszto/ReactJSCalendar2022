@@ -3,13 +3,13 @@
 import React, { useState, useEffect }  from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { toggleReminder, setWarn } from "../../reminderSlice";
+import { setReminder } from "../../monthSlice";
 import { MonthType, ReminderType } from "../../types";
 import "./style.css"
 
 
 export default function Reminder( props: any )
 {
-	
 	const dispatch = useDispatch();
 	const { reminder, month } = useSelector
 	( 
@@ -26,7 +26,8 @@ export default function Reminder( props: any )
 	{
 		day: 1,
 		time: "00:00",
-		color:"#FF465D" 
+		color:"#FF465D",
+		message:""
 	}
 
 	const [ inputsValues, setInputValue ] = useState(inputsDefaultValues);
@@ -37,11 +38,12 @@ export default function Reminder( props: any )
 		ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
 	) =>
 	{
+		
 		const keyOfEventTarget = key as keyof EventTarget;
 
 		const value = ev.target[ keyOfEventTarget ];
 
-		setInputValue( { ... inputsValues, [key]: value} );
+		setInputValue( { ... inputsValues, [which]: value} );
 
 		if ( reminder.warn !== null )
 		{
@@ -51,8 +53,14 @@ export default function Reminder( props: any )
 
 	const submitSchedule = ( ev: React.FormEvent ) =>
 	{
-		console.log( ev );
 		ev.preventDefault();	
+		if ( !! inputsValues.message === false )
+		{
+			dispatch( setWarn("Please enter a schedule message") );
+			return;
+		}
+
+		dispatch( setReminder( { ... inputsValues, monthZeroBased: month.monthZeroBased } ) );
 	}
 
 	return (
@@ -73,7 +81,7 @@ export default function Reminder( props: any )
 			</div>
 			<article className={["content", reminder.active === true && "shown" || "not-shown"].join(" ")}>
 				<form name="name" onSubmit={submitSchedule}>
-					<div className={["warn", reminder.warn !== null && "active" || "" ].join( " " )}>{reminder.warn}
+					<div className={["warn", reminder.warn !== null && "shown" || "" ].join( " " )}>{reminder.warn}
 					</div>
 					<div className="day input-container">
 						<input 

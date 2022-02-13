@@ -4,6 +4,8 @@ import { MonthType } from "./types"
 
 const upTo31 = [ 0, 2, 4, 6, 7, 9, 11 ];
 
+const now = new Date();
+
 const months = 
 [
 	{
@@ -12,7 +14,7 @@ const months =
 	},
 	{
 		name: "February",
-		overrideUpTo: 28,
+		overrideUpTo: new Date(now.getFullYear(), 1, 29).getDate() === 29 && 26 || 28,
 		startsAt: 2
 	},
 	{
@@ -57,7 +59,6 @@ const months =
 	}
 ];
 
-const now = new Date();
 const thisMonth = now.getMonth();
 const monthPack = months[ thisMonth ];
 
@@ -73,8 +74,8 @@ const initialState: MonthType  =
 	monthZeroBased: thisMonth,
 	month: thisMonth + 1,
 	daysAmount: calculateDaysAmount( thisMonth ),
-	reminders:[],
-	reminderActive: false
+	thisYear: now.getFullYear(),
+	reminders:[]
 }
 
 export const monthSlice = createSlice
@@ -84,10 +85,6 @@ export const monthSlice = createSlice
 		initialState,
 		reducers:
 		{
-			toggleReminder: ( state ) =>
-			{
-				state.reminderActive = ! state.reminderActive;
-			},
 			next: ( state ) =>
 			{
 				if ( state.monthZeroBased >= 11 )
@@ -111,13 +108,19 @@ export const monthSlice = createSlice
 				state.monthZeroBased -= 1;
 				state.monthPack = months[ state.monthZeroBased ];
 				state.daysAmount = calculateDaysAmount( state.monthZeroBased );
+			},
+			setReminder: ( state, action ) =>
+			{
+				const data = action.payload;
+				console.log( data );
+				//
 			}
 		}
 	}
 );
 
 
-export const { next, previous } = monthSlice.actions;
+export const { next, previous, setReminder } = monthSlice.actions;
 
 export default monthSlice.reducer;
 

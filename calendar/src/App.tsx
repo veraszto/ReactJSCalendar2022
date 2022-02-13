@@ -24,7 +24,7 @@ function App()
 
 	return (
 		<section className="main-cont">
-			<Header>{month.monthPack.name}
+			<Header>{month.monthPack.name}/{month.thisYear}
 			</Header>
 			<section className="calendar-container">
 				<Calendar />

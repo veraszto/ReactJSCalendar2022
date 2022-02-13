@@ -8,8 +8,8 @@ export type MonthType =
 	month: number, 
 	daysAmount: number,
 	monthZeroBased: number,
-	reminders: Array<any>,
-	reminderActive: boolean
+	thisYear: number,
+	reminders: Array<any>
 };
 
 export type ReminderType = 
