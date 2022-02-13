@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { initialStateType } from "./types"
+import { MonthType } from "./types"
 
 const upTo31 = [ 0, 2, 4, 6, 7, 9, 11 ];
 
@@ -67,13 +67,14 @@ const calculateDaysAmount = ( month: number ) =>
 }
 
 
-const initialState: initialStateType  = 
+const initialState: MonthType  = 
 {
 	monthPack: monthPack,
 	monthZeroBased: thisMonth,
 	month: thisMonth + 1,
-	daysAmount: calculateDaysAmount( thisMonth )
-
+	daysAmount: calculateDaysAmount( thisMonth ),
+	reminders:[],
+	reminderActive: false
 }
 
 export const monthSlice = createSlice
@@ -83,6 +84,10 @@ export const monthSlice = createSlice
 		initialState,
 		reducers:
 		{
+			toggleReminder: ( state ) =>
+			{
+				state.reminderActive = ! state.reminderActive;
+			},
 			next: ( state ) =>
 			{
 				if ( state.monthZeroBased >= 11 )

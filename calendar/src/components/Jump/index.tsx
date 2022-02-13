@@ -21,7 +21,6 @@ class Jump extends React.Component<PropsType>
 	
 	componentDidMount()
 	{
-		console.log( "componentDidMount" );
 	}
 
 	render()

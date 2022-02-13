@@ -1,14 +1,14 @@
 
 import React, { useState, useEffect }  from 'react';
 import { useSelector } from "react-redux";
-import { initialStateType } from "../../types"
+import { MonthType } from "../../types"
 import "./style.css"
 
 
 function Calendar( props: any )
 {
 
-	const month = useSelector( ( state: { month: initialStateType } ) => state.month );
+	const month = useSelector( ( state: { month: MonthType } ) => state.month );
 	console.log( month );
 
 	useEffect

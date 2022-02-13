@@ -2,7 +2,8 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 
-import monthReducer from "./monthSlice"
+import monthReducer from "./monthSlice";
+import reminderReducer from "./reminderSlice";
 
 
 export default configureStore
@@ -10,7 +11,8 @@ export default configureStore
 	{
 		reducer:
 		{
-			month: monthReducer
+			month: monthReducer,
+			reminder: reminderReducer 
 		}
 	}
 );

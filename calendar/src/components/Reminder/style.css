@@ -1,0 +1,87 @@
+
+
+section.reminder
+{
+	position:absolute;
+	top:0;
+	right:0;
+	padding:1em;
+	background-color:var(--SharpEmphasis);
+	color:var(--DarkGrey);
+}
+
+section.reminder > article.content
+{
+	margin-top:1em;
+}
+
+section.reminder > article.content.not-shown
+{
+	display:none;
+}
+
+section.reminder .month
+{
+	text-align:center;
+	cursor:pointer;
+}
+
+section.reminder input
+{
+	width:100%;
+	outline:none;
+	border:0;
+	background-color:transparent;
+	padding:0;
+	font-family:'Arial';
+}
+section.reminder div.input-container::before
+{
+	display:block;
+	padding-bottom:.5em;
+}
+section.reminder div.day::before
+{
+	content:"day:";
+}
+section.reminder div.color::before
+{
+	content:"color:";
+
+}
+section.reminder div.time::before
+{
+	content:"time:";
+}
+
+
+section.reminder textarea
+{
+	resize:none;
+	width:100%;
+	font-family:'Arial';
+	padding:.5em;
+	box-sizing:border-box;
+}
+
+section.reminder button
+{
+	width:100%;
+	margin:0;
+	display:block;
+	padding:.5em;
+	margin-top:1em;
+	cursor:pointer;
+}
+
+.input-container
+{
+	padding:1em;
+	background-color:white;
+	border-bottom:1px solid Crimson;
+}
+
+.input-container:last-child
+{
+	border:0;
+}
