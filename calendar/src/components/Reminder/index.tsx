@@ -3,10 +3,9 @@
 import React, { useState, useEffect }  from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { toggleReminder, setWarn } from "../../reminderSlice";
-import { setReminder } from "../../monthSlice";
+import { setReminder, setCurrentReminder } from "../../monthSlice";
 import { MonthType, ReminderType } from "../../types";
 import "./style.css"
-
 
 export default function Reminder( props: any )
 {
@@ -22,7 +21,10 @@ export default function Reminder( props: any )
 		) => state
 	);
 
-	const inputsDefaultValues = 
+	const reminderActive = reminder.active;
+	const currentReminder = month.currentReminder
+
+	let inputsDefaultValues: any  = 
 	{
 		day: 1,
 		time: "00:00",
@@ -31,6 +33,42 @@ export default function Reminder( props: any )
 	}
 
 	const [ inputsValues, setInputValue ] = useState(inputsDefaultValues);
+
+	useEffect
+	(
+		() =>
+		{
+			if ( reminderActive === false )
+			{
+				dispatch( setCurrentReminder( null ) );
+			}
+		}, 
+		[ reminderActive ]
+	);
+
+	useEffect
+	(
+		() =>
+		{
+			if ( currentReminder !== null )
+			{
+				const { day, time, color, message, index, monthInContext } = currentReminder;
+				setInputValue
+				(
+					{
+						day: day,
+						time: time,
+						color: color,
+						message: message,
+						month: monthInContext,
+						index: index
+					}
+				)
+			}
+		},
+		[ currentReminder ]
+	);
+
 
 	const inputChange = 
 	( 
@@ -85,7 +123,9 @@ export default function Reminder( props: any )
 				}
 			>
 			{
-				reminder.active == true && "Close" || `Schedule to ${month.monthPack.name}`
+				reminder.active == true && currentReminder !== null && "Close to deselect reminder" || 
+				reminder.active == false && `Schedule to ${month.monthPack.name}` ||
+				"Close"
 			}
 			</div>
 			<article className={["content", reminder.active === true && "shown" || "not-shown"].join(" ")}>
@@ -94,31 +134,39 @@ export default function Reminder( props: any )
 					</div>
 					<div className="day input-container">
 						<input 
-							type="number" min="1" max={month.daysAmount} name="day" defaultValue={inputsDefaultValues.day} 
+							type="number" min="1" max={month.daysAmount} name="day" 
+							value={inputsValues.day}
 							onChange={inputChange.bind(null, "day", "valueAsNumber")}
 						/>
 					</div>
 					<div className="time input-container">
 						<input 
-							type="time" name="time" defaultValue={inputsDefaultValues.time}
+							type="time" name="time" 
+							value={inputsValues.time}
 							onChange={inputChange.bind(null, "time", "value")}
 						/>
 					</div>
 					<div className="color input-container">
 						<input 
-							type="color" name="color" defaultValue={inputsDefaultValues.color}
+							type="color" name="color" 
+							value={inputsValues.color}
 							onChange={inputChange.bind(null, "color", "value")}
 						/>
 					</div>
 					<div className="message input-container">
 						<textarea 
-							rows={3} maxLength={30} placeholder="Reminder message" 
+							rows={3} maxLength={30} placeholder="Reminder message"
 							onChange={inputChange.bind(null, "message", "value")}
+							value={inputsValues.message}
 						>
 						</textarea>
 					</div>
-					<button>
-						Commit
+					{
+						currentReminder !== null &&
+						<button>Delete reminder
+						</button>
+					}
+					<button>{ currentReminder !== null && "Update" || "Commit" }
 					</button>
 				</form>
 			</article>

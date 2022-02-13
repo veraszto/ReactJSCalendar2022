@@ -53,20 +53,22 @@ section.calendar > section > div > section > article
 	margin:.5em;
 	border-radius:.5em;
 	background-color:var(--CodelittRed);
+	cursor:pointer;
 }
 
 section.calendar > section > div > section > article:first-of-type
 {
 	position:relative;
 	width:60%;
-	left:2em;
+	left:2.2em;
 }
 
 section.calendar > section > div > section > span
 {
 	display:none;
 	position:absolute;
-	left:5px;
+	padding:.25em;
+	left:4px;
 	top:2px;
 	z-index:2;
 }

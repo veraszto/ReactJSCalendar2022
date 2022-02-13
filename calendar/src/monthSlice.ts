@@ -75,7 +75,8 @@ const initialState: MonthType  =
 	month: thisMonth + 1,
 	daysAmount: calculateDaysAmount( thisMonth ),
 	thisYear: now.getFullYear(),
-	reminders:[]
+	reminders:[],
+	currentReminder: null
 }
 
 export const monthSlice = createSlice
@@ -133,13 +134,17 @@ export const monthSlice = createSlice
 					state.reminders[ data.monthZeroBased ][ data.day ].push( packToSave );
 				}
 				//
+			},
+			setCurrentReminder: ( state, action ) =>
+			{
+				state.currentReminder = action.payload;
 			}
 		}
 	}
 );
 
 
-export const { next, previous, setReminder } = monthSlice.actions;
+export const { next, previous, setReminder, setCurrentReminder } = monthSlice.actions;
 
 export default monthSlice.reducer;
 

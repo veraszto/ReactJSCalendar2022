@@ -1,22 +1,26 @@
 
 import React, { useState, useEffect }  from 'react';
-import { useSelector } from "react-redux";
-import { MonthType } from "../../types"
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentReminder } from "../../monthSlice";
+import { toggleReminder } from "../../reminderSlice";
+import { MonthType, ReminderType } from "../../types"
 import "./style.css"
 
 
 function Calendar( props: any )
 {
 
-	const month = useSelector( ( state: { month: MonthType } ) => state.month );
-	console.log( month );
-
-	useEffect
-	(
-		() =>
-		{
-		}
-	)
+	const { reminder, month } = useSelector
+	( 
+		( 
+			state: 
+			{ 
+				reminder: ReminderType,
+				month: MonthType
+			} 
+		) => state
+	);
+	const dispatch = useDispatch();
 
 	const fillReminders = ( day: number ) =>
 	{
@@ -28,17 +32,45 @@ function Calendar( props: any )
 			return null;
 		}
 
-		console.log( reminders );
+//		console.log( reminders );
 
 		const remindersElements = reminders.map
 		(
-			( reminder: { [ index: string ]: number | string }, index: number ) =>
+			( eachReminder: { [ index: string ]: number | string }, index: number ) =>
 			{
 				return (
-					<article key={index} style={{backgroundColor: reminder.color as string }}>
-						<div>{reminder.time}
+					<article 
+						key={index} style={{backgroundColor: eachReminder.color as string }}
+						onClick=
+						{
+							( ev ) =>
+							{
+								dispatch
+								(
+									setCurrentReminder
+									(
+										{
+											time: eachReminder.time,
+											message: eachReminder.message,
+											color: eachReminder.color,
+											day: day,
+											monthInContext: month.monthZeroBased,
+											index: index
+										}
+									)
+								);
+
+								if ( reminder.active === false )
+								{
+									dispatch( toggleReminder() );
+								}
+
+							}
+						}
+					>
+						<div>{eachReminder.time}
 						</div>
-						<div>{reminder.message}
+						<div>{eachReminder.message}
 						</div>
 					</article>
 				);
