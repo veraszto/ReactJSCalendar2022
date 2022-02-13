@@ -112,7 +112,26 @@ export const monthSlice = createSlice
 			setReminder: ( state, action ) =>
 			{
 				const data = action.payload;
-				console.log( data );
+				const packToSave = 
+				{
+					color: data.color,
+					message: data.message,
+					time: data.time
+				};
+
+				if ( state.reminders[ data.monthZeroBased ] === undefined )
+				{
+					state.reminders[ data.monthZeroBased ] = []
+					state.reminders[ data.monthZeroBased ][ data.day ] = [ packToSave ];
+				}
+				else if ( state.reminders[ data.monthZeroBased ][ data.day ] === undefined )
+				{
+					state.reminders[ data.monthZeroBased ][ data.day ] = [ packToSave ];
+				}
+				else
+				{
+					state.reminders[ data.monthZeroBased ][ data.day ].push( packToSave );
+				}
 				//
 			}
 		}

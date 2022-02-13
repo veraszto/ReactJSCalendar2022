@@ -38,15 +38,40 @@ section.calendar > section > div
 	transition-property:background-color;
 	position:relative;
 }
-section.calendar > section > div > section > article > span
+
+section.calendar > section > div > section
+{
+	height:100%;
+	overflow:auto;	
+}
+
+section.calendar > section > div > section > article
+{
+	font-size:x-small;
+	line-height:1;
+	padding:.5em;
+	margin:.5em;
+	border-radius:.5em;
+	background-color:var(--CodelittRed);
+}
+
+section.calendar > section > div > section > article:first-of-type
+{
+	position:relative;
+	width:60%;
+	left:2em;
+}
+
+section.calendar > section > div > section > span
 {
 	display:none;
 	position:absolute;
 	left:5px;
 	top:2px;
+	z-index:2;
 }
 
-section.calendar > section > div.active > section > article > span
+section.calendar > section > div.active > section > span
 {
 	display:block;
 }
@@ -57,7 +82,7 @@ section.calendar > section > div.active
 
 section.calendar > section > div.active:hover
 {
-	background-color:var(--SharpEmphasis);
+	background-color:var(--CodelittBlue);
 }
 
 

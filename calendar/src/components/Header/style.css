@@ -6,7 +6,7 @@
 header.main
 {
 	padding:2em;
-	background-color:DarkBlue;	
+	background-color:var(--CodelittBlue);	
 	text-align:center;
 	color:white;
 }

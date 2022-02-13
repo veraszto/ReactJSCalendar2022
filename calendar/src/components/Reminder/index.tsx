@@ -61,6 +61,9 @@ export default function Reminder( props: any )
 		}
 
 		dispatch( setReminder( { ... inputsValues, monthZeroBased: month.monthZeroBased } ) );
+
+		(ev.target as HTMLFormElement).reset();
+
 	}
 
 	return (

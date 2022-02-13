@@ -18,6 +18,17 @@ function Calendar( props: any )
 		}
 	)
 
+	const fillReminders = ( day: number ) =>
+	{
+		return (
+			[ 
+				<article>Hello how are you</article>, 
+				<article>Hello how are you</article>, 
+				<article>Hello how are you</article>, 
+				<article>Hello how are you</article> 
+			]
+		);
+	}
 
 	return (
 		<section className="calendar">
@@ -30,7 +41,6 @@ function Calendar( props: any )
 						let counter = 1;
 						let letRestart = true;
 						let key = 0;
-						let article = <article></article>;
 						let className: string[] = [];
 						for ( var i = 0 ; i <= 30 ; i++ )
 						{
@@ -57,14 +67,9 @@ function Calendar( props: any )
 							(
 								<div key={key++} className={className.join(" ")}>
 									<section>
-									{
-										React.cloneElement
-										(
-											article,
-											{},
-											<span>{counter}</span>
-										)
-									}
+										<span>{counter}
+										</span>
+										{letRestart === false && fillReminders(counter)}
 									</section>
 								</div>
 							);
@@ -77,6 +82,8 @@ function Calendar( props: any )
 			</section>
 		</section>
 	);
+
+
 }
 
 

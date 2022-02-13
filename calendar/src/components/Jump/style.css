@@ -4,7 +4,7 @@
 
 svg.arrow
 {
-	fill:pink;
+	fill:var(--CodelittBlue);
 	width:100%;
 	height:auto;
 	display:block;
@@ -12,7 +12,7 @@ svg.arrow
 
 .bar:active > svg 
 {
-	fill:var(--SharpEmphasis);
+	fill:var(--CodelittRed);
 }
 
 .bar
@@ -34,7 +34,7 @@ svg.arrow
 
 .bar:hover
 {
-	background-color:DarkBlue;
+	background-color:var(--CodelittPurple);
 }
 
 .bar.left

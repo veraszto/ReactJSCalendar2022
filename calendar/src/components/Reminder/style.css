@@ -78,7 +78,7 @@ section.reminder .warn
 {
 	display:none;
 	padding:1em;
-	background-color:Yellow;
+	background-color:var(--CodelittRed);
 	margin-bottom:1em;
 }
 

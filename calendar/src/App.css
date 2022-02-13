@@ -2,8 +2,11 @@
 :root, #root
 {
 	height:100%;
-	--SharpEmphasis:#fc0fc0;
 	--DarkGrey:#222;
+	--CodelittRed: #FF465D;
+	--CodelittPurple: #BC46BA;
+	--CodelittBlue:#3BC6FB;
+	--SharpEmphasis:var(--CodelittPurple);
 }
 
 body
