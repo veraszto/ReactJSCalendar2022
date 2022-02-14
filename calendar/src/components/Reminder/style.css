@@ -6,7 +6,7 @@ section.reminder
 	top:0;
 	right:0;
 	background-color:var(--SharpEmphasis);
-	color:var(--DarkGrey);
+	color:white;
 }
 
 @media screen and (max-width: 900px)
@@ -25,6 +25,7 @@ section.reminder
 section.reminder > article.content
 {
 	padding:0em 1em 1em 1em;
+	color:var(--DarkGrey);
 }
 
 section.reminder > article.content.not-shown
@@ -37,6 +38,15 @@ section.reminder .month
 	text-align:center;
 	cursor:pointer;
 	padding:1em;
+	user-select:none;
+}
+
+section.reminder .month > span 
+{
+}
+section.reminder .month > span:first-child
+{
+	font-size:small;
 }
 
 section.reminder input

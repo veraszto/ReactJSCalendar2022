@@ -112,7 +112,11 @@ function Calendar( props: any )
 
 							if ( i >= month.daysAmount )
 							{
-								return squares;
+								className = [];
+								if ( squares.length >= 35 )
+								{
+									return squares;
+								}
 							}
 							
 

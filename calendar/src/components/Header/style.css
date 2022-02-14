@@ -28,7 +28,7 @@ header.main > span
 
 header.main::before
 {
-	content:"CODELITT Calendar Challenge, Danilo G. Veraszto, january/2022";
+	content:"CODELITT Calendar Challenge, Danilo G. Veraszto, February 13, 2022";
 	position:absolute;
 	top:.5em;
 	right:.5em;

@@ -117,8 +117,11 @@ export const monthSlice = createSlice
 				{
 					color: data.color,
 					message: data.message,
-					time: data.time
+					time: data.time,
+					orderContext: parseInt(data.time.replace( /(?<=\d{2}):(?=\d{2})/, ""))
 				};
+
+				const index = data.index;
 
 				if ( state.reminders[ data.monthZeroBased ] === undefined )
 				{
@@ -131,38 +134,39 @@ export const monthSlice = createSlice
 				}
 				else
 				{
-					state.reminders[ data.monthZeroBased ][ data.day ].push( packToSave );
+					const collection = state.reminders[ data.monthZeroBased ][ data.day ];
+					let saveIndex = 0;
+					if ( index !== undefined )
+					{
+						saveIndex = index;
+					}
+					else
+					{
+						collection.forEach
+						(
+							( each: {orderContext: number}, index: number ) =>
+							{
+								console.log( index );
+								if ( packToSave.orderContext >= each.orderContext )
+								{
+									saveIndex = index + 1;
+								}
+							}
+						);
+					}
+					
+
+					collection.splice( saveIndex, 0, packToSave );
 				}
 				//
 			},
-			deleteUpdateReminder: ( state, action ) =>
+			deleteReminder: ( state, action ) =>
 			{
-				const { dataDelete, dataCreate, deleteOnly } = action.payload;
-				const { month, day, index } = dataDelete;
-				const { color, message, time } = dataCreate;
+				const { month, day, index } = action.payload;
 				state.reminders[ month ][ day ][ index ] = 
 				{
 					deleted: true					
 				};
-				if ( deleteOnly === true )
-				{
-					return;
-				}
-
-				monthSlice.actions.setReminder
-				(
-					{
-						payload:
-						{
-							color,
-							message,
-							time,
-							day,
-							monthZeroBased: month
-						}
-					}
-				);
-
 			},
 			setCurrentReminder: ( state, action ) =>
 			{
@@ -176,7 +180,7 @@ export const monthSlice = createSlice
 export const 
 { 
 	next, previous, setReminder, 
-	setCurrentReminder, deleteUpdateReminder
+	setCurrentReminder, deleteReminder
 } = monthSlice.actions;
 
 export default monthSlice.reducer;

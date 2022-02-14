@@ -3,7 +3,7 @@
 import React, { useState, useEffect }  from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { toggleReminder, setWarn } from "../../reminderSlice";
-import { setReminder, setCurrentReminder, deleteUpdateReminder } from "../../monthSlice";
+import { setReminder, setCurrentReminder, deleteReminder } from "../../monthSlice";
 import { MonthType, ReminderType } from "../../types";
 import "./style.css"
 
@@ -120,20 +120,21 @@ export default function Reminder( props: any )
 		{
 			dispatch( setReminder( { ... inputsValues, monthZeroBased: month.monthZeroBased } ) );
 		}
-		else if ( which === "delete" )
+		else 
 		{
 			const { day, monthInContext, index, color, message, time } = currentReminder;
+			const update = ((which === "delete")? true : false);
 			dispatch
 			( 
-				deleteUpdateReminder
-				( 
-					{
-						dataDelete: {day: day, month: monthInContext, index: index },
-						dataCreate: { color, message, time },
-						deleteOnly: true
-					}
-				) 
+				deleteReminder( {day: day, month: monthInContext, index: index } ) 
 			);
+
+			if ( which === "update" )
+			{
+				dispatch( setReminder( { ... inputsValues, monthZeroBased: monthInContext, index: index } ) );
+			}
+
+			dispatch( toggleReminder() );
 		}
 
 //		(ev.target as HTMLFormElement).reset();
@@ -154,7 +155,7 @@ export default function Reminder( props: any )
 			>
 			{
 				reminder.active == true && currentReminder !== null && "Close to deselect reminder" || 
-				reminder.active == false && `Schedule to ${month.monthPack.name}` ||
+				reminder.active == false && <><span>Schedule/Manage reminders in </span><span>{month.monthPack.name}</span></> ||
 				"Close"
 			}
 			</div>

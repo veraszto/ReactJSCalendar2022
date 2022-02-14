@@ -71,6 +71,7 @@ section.calendar > section > div > section > span
 	left:4px;
 	top:2px;
 	z-index:2;
+	user-select:none;
 }
 
 section.calendar > section > div.active > section > span
