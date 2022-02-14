@@ -3,7 +3,7 @@
 import React, { useState, useEffect }  from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { toggleReminder, setWarn } from "../../reminderSlice";
-import { setReminder, setCurrentReminder } from "../../monthSlice";
+import { setReminder, setCurrentReminder, deleteUpdateReminder } from "../../monthSlice";
 import { MonthType, ReminderType } from "../../types";
 import "./style.css"
 
@@ -22,7 +22,14 @@ export default function Reminder( props: any )
 	);
 
 	const reminderActive = reminder.active;
-	const currentReminder = month.currentReminder
+	const currentReminder: any = month.currentReminder;
+	let buttonNames = [ "delete", "commit" ];
+	let deleteButton = null;
+	if ( currentReminder !== null )
+	{
+		buttonNames[ 1 ] = "update";
+		deleteButton = <button name={buttonNames[0]}>Delete reminder</button>
+	}
 
 	let inputsDefaultValues: any  = 
 	{
@@ -52,6 +59,7 @@ export default function Reminder( props: any )
 		{
 			if ( currentReminder !== null )
 			{
+//				console.log( currentReminder );
 				const { day, time, color, message, index, monthInContext } = currentReminder;
 				setInputValue
 				(
@@ -89,10 +97,13 @@ export default function Reminder( props: any )
 		}
 	}
 
-	const submitSchedule = ( ev: React.FormEvent ) =>
+	const submitSchedule = 
+	( 
+		ev: React.FormEvent<HTMLFormElement> & 
+		{ nativeEvent:{ submitter: { name: string }}} 
+	) =>
 	{
 		ev.preventDefault();	
-//		console.log( inputsValues );
 		if ( !! inputsValues.message === false )
 		{
 			dispatch( setWarn("Please enter a reminder message") );
@@ -104,7 +115,26 @@ export default function Reminder( props: any )
 			return;
 		}
 
-		dispatch( setReminder( { ... inputsValues, monthZeroBased: month.monthZeroBased } ) );
+		const which = (ev.nativeEvent).submitter.name;
+		if ( which === "commit" )
+		{
+			dispatch( setReminder( { ... inputsValues, monthZeroBased: month.monthZeroBased } ) );
+		}
+		else if ( which === "delete" )
+		{
+			const { day, monthInContext, index, color, message, time } = currentReminder;
+			dispatch
+			( 
+				deleteUpdateReminder
+				( 
+					{
+						dataDelete: {day: day, month: monthInContext, index: index },
+						dataCreate: { color, message, time },
+						deleteOnly: true
+					}
+				) 
+			);
+		}
 
 //		(ev.target as HTMLFormElement).reset();
 
@@ -129,7 +159,7 @@ export default function Reminder( props: any )
 			}
 			</div>
 			<article className={["content", reminder.active === true && "shown" || "not-shown"].join(" ")}>
-				<form name="name" onSubmit={submitSchedule}>
+				<form name="main" onSubmit={submitSchedule}>
 					<div className={["warn", reminder.warn !== null && "shown" || "" ].join( " " )}>{reminder.warn}
 					</div>
 					<div className="day input-container">
@@ -161,12 +191,8 @@ export default function Reminder( props: any )
 						>
 						</textarea>
 					</div>
-					{
-						currentReminder !== null &&
-						<button>Delete reminder
-						</button>
-					}
-					<button>{ currentReminder !== null && "Update" || "Commit" }
+					{deleteButton}
+					<button name={buttonNames[1]}>{ currentReminder !== null && "Update" || "Commit" }
 					</button>
 				</form>
 			</article>

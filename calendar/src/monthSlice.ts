@@ -135,6 +135,35 @@ export const monthSlice = createSlice
 				}
 				//
 			},
+			deleteUpdateReminder: ( state, action ) =>
+			{
+				const { dataDelete, dataCreate, deleteOnly } = action.payload;
+				const { month, day, index } = dataDelete;
+				const { color, message, time } = dataCreate;
+				state.reminders[ month ][ day ][ index ] = 
+				{
+					deleted: true					
+				};
+				if ( deleteOnly === true )
+				{
+					return;
+				}
+
+				monthSlice.actions.setReminder
+				(
+					{
+						payload:
+						{
+							color,
+							message,
+							time,
+							day,
+							monthZeroBased: month
+						}
+					}
+				);
+
+			},
 			setCurrentReminder: ( state, action ) =>
 			{
 				state.currentReminder = action.payload;
@@ -144,7 +173,11 @@ export const monthSlice = createSlice
 );
 
 
-export const { next, previous, setReminder, setCurrentReminder } = monthSlice.actions;
+export const 
+{ 
+	next, previous, setReminder, 
+	setCurrentReminder, deleteUpdateReminder
+} = monthSlice.actions;
 
 export default monthSlice.reducer;
 

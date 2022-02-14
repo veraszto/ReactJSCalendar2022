@@ -32,12 +32,14 @@ function Calendar( props: any )
 			return null;
 		}
 
-//		console.log( reminders );
-
 		const remindersElements = reminders.map
 		(
-			( eachReminder: { [ index: string ]: number | string }, index: number ) =>
+			( eachReminder: { [ index: string ]: number | string | boolean }, index: number ) =>
 			{
+				if ( eachReminder.deleted === true )
+				{
+					return null;
+				}
 				return (
 					<article 
 						key={index} style={{backgroundColor: eachReminder.color as string }}
