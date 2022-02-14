@@ -136,25 +136,16 @@ export const monthSlice = createSlice
 				{
 					const collection = state.reminders[ data.monthZeroBased ][ data.day ];
 					let saveIndex = 0;
-					if ( index !== undefined )
-					{
-						saveIndex = index;
-					}
-					else
-					{
-						collection.forEach
-						(
-							( each: {orderContext: number}, index: number ) =>
+					collection.forEach
+					(
+						( each: {orderContext: number}, index: number ) =>
+						{
+							if ( packToSave.orderContext >= each.orderContext )
 							{
-								console.log( index );
-								if ( packToSave.orderContext >= each.orderContext )
-								{
-									saveIndex = index + 1;
-								}
+								saveIndex = index + 1;
 							}
-						);
-					}
-					
+						}
+					);
 
 					collection.splice( saveIndex, 0, packToSave );
 				}

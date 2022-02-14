@@ -123,7 +123,6 @@ export default function Reminder( props: any )
 		else 
 		{
 			const { day, monthInContext, index, color, message, time } = currentReminder;
-			const update = ((which === "delete")? true : false);
 			dispatch
 			( 
 				deleteReminder( {day: day, month: monthInContext, index: index } ) 
