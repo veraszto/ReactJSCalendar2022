@@ -42,7 +42,8 @@ section.calendar > section > div
 section.calendar > section > div > section
 {
 	height:100%;
-	overflow:auto;	
+	overflow-x:hidden;
+	overflow-y:auto;
 }
 
 section.calendar > section > div > section > article
@@ -60,7 +61,7 @@ section.calendar > section > div > section > article:first-of-type
 {
 	position:relative;
 	width:60%;
-	left:2.2em;
+	left:2em;
 }
 
 section.calendar > section > div > section > span
